@@ -33,10 +33,20 @@ public class MyArrayList<E> {
         size++;
     }
 
+    //resize data array to fit in more element
     private void resize(int newCapacity) {
         E[] temp = (E[]) new Object[newCapacity];
         //copy data to the new array
         System.arraycopy(data, 0, temp, 0, size);
         data = temp;
+    }
+
+    private boolean isValidElementIndex(int index) {
+        return index >= 0 && index < size;
+    }
+
+    private boolean isValidPositionIndex(int index) {
+        //test if index <= size since it is possible to insert at the end
+        return index >= 0 && index <= size;
     }
 }
