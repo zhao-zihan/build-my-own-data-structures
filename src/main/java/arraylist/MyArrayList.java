@@ -16,4 +16,19 @@ public class MyArrayList<E> {
         data = (E[]) new Object[initCapacity];
         size = 0;
     }
+
+    /****** Add ******/
+
+    public void addLast(E e) {
+        int cap = data.length;
+        //check if there is enough space for appending,
+        //if not, double the capacity
+        if (size == cap) {
+            resize(cap * 2);
+        }
+        //Add the element at end of the array
+        //Note: the
+        data[size] = e;
+        size++;
+    }
 }
