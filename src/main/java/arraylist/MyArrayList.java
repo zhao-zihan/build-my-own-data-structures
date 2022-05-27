@@ -19,6 +19,7 @@ public class MyArrayList<E> {
 
     /****** Add ******/
 
+    //Add an element from the end
     public void addLast(E e) {
         int cap = data.length;
         //check if there is enough space for appending,
@@ -30,5 +31,12 @@ public class MyArrayList<E> {
         //Note: the
         data[size] = e;
         size++;
+    }
+
+    private void resize(int newCapacity) {
+        E[] temp = (E[]) new Object[newCapacity];
+        //copy data to the new array
+        System.arraycopy(data, 0, temp, 0, size);
+        data = temp;
     }
 }
