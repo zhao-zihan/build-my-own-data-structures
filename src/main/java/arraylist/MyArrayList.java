@@ -49,4 +49,24 @@ public class MyArrayList<E> {
         //test if index <= size since it is possible to insert at the end
         return index >= 0 && index <= size;
     }
+
+    /**
+     * This function is to check if a given index is accessible for searching an element
+     * @param index
+     */
+    private void checkElementIndex(int index) {
+        if (!isValidElementIndex(index)) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+
+    /**
+     * This function is to check if a given index is accessible for insertion
+     * @param index
+     */
+    private void checkPositionIndex(int index) {
+        if (!isValidPositionIndex(index)) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
 }
