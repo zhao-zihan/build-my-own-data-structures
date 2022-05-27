@@ -1,5 +1,7 @@
 package arraylist;
 
+import java.util.NoSuchElementException;
+
 public class MyArrayList<E> {
     //Use an array as the base
     private E[] data;
@@ -30,6 +32,34 @@ public class MyArrayList<E> {
         //Add the element at end of the array
         //Note: use size instead of data.length
         data[size++] = e;
+    }
+
+    /****** Delete ******/
+
+    public E removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        int cap = data.length;
+        //resize data if size is too small but make sure
+        // there are enough spaces left after resizing
+        if (size < cap / 4) {
+            resize(cap / 2);
+        }
+        //get the removed value, make its spot null then return the value
+        E removedValue = data[size - 1];
+        data[size - 1] = null;
+        return removedValue;
+    }
+
+    /****** Tools ******/
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     //resize data array to fit in more element
@@ -68,4 +98,6 @@ public class MyArrayList<E> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
+
+
 }
