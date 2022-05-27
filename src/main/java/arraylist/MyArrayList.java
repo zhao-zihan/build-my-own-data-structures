@@ -28,9 +28,8 @@ public class MyArrayList<E> {
             resize(cap * 2);
         }
         //Add the element at end of the array
-        //Note: the
-        data[size] = e;
-        size++;
+        //Note: use size instead of data.length
+        data[size++] = e;
     }
 
     //resize data array to fit in more element
