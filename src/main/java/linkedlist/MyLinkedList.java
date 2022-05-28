@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.NoSuchElementException;
+
 public class MyLinkedList<E> {
     private static class Node<E> {
         E val;
@@ -53,6 +55,40 @@ public class MyLinkedList<E> {
     public void add(int index, E element) {
         checkPositionIndex(index);
         size++;
+    }
+
+    /****** Delete ******/
+
+    public E removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        Node<E> removed = head.next;
+        head.next = removed.next;
+        removed.next.prev = head;
+
+        removed.next = removed.prev = null;
+
+        size--;
+
+        return removed.val;
+    }
+
+    public E removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        Node<E> removed = tail.prev;
+        removed.prev.next = tail;
+        tail.prev = removed.prev;
+
+        removed.next = removed.prev = null;
+
+        size--;
+
+        return removed.val;
     }
 
     /****** Tools ******/
