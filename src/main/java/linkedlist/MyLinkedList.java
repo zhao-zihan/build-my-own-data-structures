@@ -54,6 +54,17 @@ public class MyLinkedList<E> {
 
     public void add(int index, E element) {
         checkPositionIndex(index);
+
+        Node<E> curr = getNode(index);
+        Node<E> prev = curr.prev;
+        Node<E> inserted = new Node<>(element);
+
+        curr.prev = inserted;
+        prev.next = inserted;
+
+        inserted.next = curr;
+        inserted.prev = prev;
+
         size++;
     }
 
@@ -91,6 +102,24 @@ public class MyLinkedList<E> {
         return removed.val;
     }
 
+    public E remove(int index) {
+        checkElementIndex(index);
+
+        Node<E> curr = getNode(index);
+        Node<E> prev = curr.prev;
+        Node<E> next = curr.next;
+        //prev <-> curr <-> next
+
+        prev.next = curr.next;
+        next.prev = prev;
+
+        curr.next = curr.prev = null;
+
+        size--;
+
+        return curr.val;
+    }
+
     /****** Read ******/
 
     public E getFirst() {
@@ -105,6 +134,22 @@ public class MyLinkedList<E> {
             throw new NoSuchElementException();
         }
         return tail.prev.val;
+    }
+
+    public E get(int index) {
+        checkElementIndex(index);
+        Node<E> node = getNode(index);
+        return node.val;
+    }
+
+    /****** Update ******/
+
+    public E set(int index, E element) {
+        checkElementIndex(index);
+        Node<E> node = getNode(index);
+        E previousValue = node.val;
+        node.val = element;
+        return previousValue;
     }
 
     /****** Tools ******/
