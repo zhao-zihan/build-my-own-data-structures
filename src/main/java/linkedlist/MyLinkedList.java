@@ -91,6 +91,22 @@ public class MyLinkedList<E> {
         return removed.val;
     }
 
+    /****** Read ******/
+
+    public E getFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return head.next.val;
+    }
+
+    public E getLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return tail.prev.val;
+    }
+
     /****** Tools ******/
 
     public int size() {
