@@ -22,6 +22,39 @@ public class MyLinkedList<E> {
         this.size = 0;
     }
 
+    /****** Add ******/
+
+    public void addFirst(E element) {
+        Node<E> inserted = new Node<>(element);
+        Node<E> next = head.next;
+
+        inserted.next = next;
+        inserted.prev = head;
+
+        head.next = inserted;
+        next.prev = inserted;
+
+        size++;
+    }
+
+    public void addLast(E element) {
+        Node<E> inserted = new Node<>(element);
+        Node<E> prev = tail.prev;
+
+        inserted.next = tail;
+        inserted.prev = prev;
+
+        tail.prev = inserted;
+        prev.next = inserted;
+
+        size++;
+    }
+
+    public void add(int index, E element) {
+        checkPositionIndex(index);
+        size++;
+    }
+
     /****** Tools ******/
 
     public int size() {
