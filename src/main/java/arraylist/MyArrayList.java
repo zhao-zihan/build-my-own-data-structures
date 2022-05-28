@@ -52,6 +52,22 @@ public class MyArrayList<E> {
         return removedValue;
     }
 
+    /****** Read ******/
+
+    public E get(int index) {
+        checkElementIndex(index);
+        return data[index];
+    }
+
+    /****** Update ******/
+
+    public E set(int index, E element) {
+        checkElementIndex(index);
+        E previousValue = data[index];
+        data[index] = element;
+        return previousValue;
+    }
+
     /****** Tools ******/
 
     public int size() {
