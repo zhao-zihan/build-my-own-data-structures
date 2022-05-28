@@ -1,8 +1,10 @@
 package arraylist;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyArrayList<E> {
+
+public class MyArrayList<E> implements Iterable<E> {
     //Use an array as the base
     private E[] data;
     //Use an integer size to store the actual number of elements in the array
@@ -34,6 +36,15 @@ public class MyArrayList<E> {
         data[size++] = e;
     }
 
+    public void add(int index, E element) {
+        checkPositionIndex(index);
+        //move all the elements from the index position one step backward to the right
+        //data[index..] -> data[index + 1..]
+        System.arraycopy(data, index, data, index + 1, size - index);
+        data[index] = element;
+        size++;
+    }
+
     /****** Delete ******/
 
     public E removeLast() {
@@ -48,7 +59,17 @@ public class MyArrayList<E> {
         }
         //get the removed value, make its spot null then return the value
         E removedValue = data[size - 1];
-        data[size - 1] = null;
+        data[--size] = null;
+        return removedValue;
+    }
+
+    public E remove(int index) {
+        checkElementIndex(index);
+        //move all elements after the index position one step forward to the left
+        //data[index + 1..] -> data[index..]
+        System.arraycopy(data, index + 1, data, index, size - index - 1);
+        E removedValue = data[index];
+        data[--size] = null;
         return removedValue;
     }
 
@@ -115,5 +136,48 @@ public class MyArrayList<E> {
         }
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private int position = 0;
+            @Override
+            public boolean hasNext() {
+                return position != size;
+            }
+
+            @Override
+            public E next() {
+                return data[position++];
+            }
+        };
+    }
+
+    /**
+     * Simple tests
+     * @param args
+     */
+    public static void main(String[] args) {
+        MyArrayList<Integer> arr = new MyArrayList<>();
+        System.out.print("Initial elements are: \n");
+        for (int i = 0; i <= 5; i++) {
+            arr.addLast(i);
+            System.out.print(i + " ");
+        }
+
+        arr.remove(3);
+        arr.add(1, 9);
+        int val = arr.removeLast();
+        System.out.println("\nRemoved last element is: " + val);
+
+        System.out.println("Modified elements are: ");
+        for (int i = 0; i < arr.size; i++) {
+            System.out.print(arr.get(i) + " ");
+        }
+
+        System.out.println("\nPrint elements using iterator: ");
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+    }
 
 }
