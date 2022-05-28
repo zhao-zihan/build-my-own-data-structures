@@ -21,4 +21,42 @@ public class MyLinkedList<E> {
         tail.prev = head;
         this.size = 0;
     }
+
+    /****** Tools ******/
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private boolean isValidElementIndex(int index) {
+        return index >= 0 && index < size;
+    }
+
+    private boolean isValidPositionIndex(int index) {
+        return index >= 0 && index <= size;
+    }
+
+    /**
+     * This function is to check if a given index is accessible for searching an element
+     * @param index
+     */
+    private void checkElementIndex(int index) {
+        if (!isValidElementIndex(index)) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+
+    /**
+     * This function is to check if a given index is accessible for insertion
+     * @param index
+     */
+    private void checkPositionIndex(int index) {
+        if (!isValidPositionIndex(index)) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
 }
