@@ -144,4 +144,18 @@ public class MyLinkedList<E> {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
     }
+
+    /**
+     * This function is to return a node at a given index,
+     * this will help with all operations that work on a specific element
+     * @param index
+     * @return
+     */
+    private Node<E> getNode(int index) {
+        Node<E> pivot = head.next;
+        for (int i = 0; i < index; i++) {
+            pivot = pivot.next;
+        }
+        return pivot;
+    }
 }
