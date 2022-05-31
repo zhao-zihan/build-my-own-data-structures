@@ -22,7 +22,6 @@ public class MyArrayList<E> implements Iterable<E> {
     }
 
     /****** Add ******/
-
     //Add an element from the end
     public void addLast(E e) {
         int cap = data.length;
@@ -36,6 +35,7 @@ public class MyArrayList<E> implements Iterable<E> {
         data[size++] = e;
     }
 
+    //Add an element at a given index
     public void add(int index, E element) {
         checkPositionIndex(index);
         //move all the elements from the index position one step backward to the right
@@ -43,6 +43,10 @@ public class MyArrayList<E> implements Iterable<E> {
         System.arraycopy(data, index, data, index + 1, size - index);
         data[index] = element;
         size++;
+    }
+
+    public void addFirst(E e) {
+        add(0, e);
     }
 
     /****** Delete ******/
@@ -71,6 +75,10 @@ public class MyArrayList<E> implements Iterable<E> {
         E removedValue = data[index];
         data[--size] = null;
         return removedValue;
+    }
+
+    public E removeFirst() {
+        return remove(0);
     }
 
     /****** Read ******/
