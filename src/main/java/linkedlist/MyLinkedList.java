@@ -1,8 +1,11 @@
 package linkedlist;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<E> {
+public class MyLinkedList<E> implements Iterable{
+
     private static class Node<E> {
         E val;
         Node<E> next;
@@ -203,4 +206,23 @@ public class MyLinkedList<E> {
         }
         return pivot;
     }
+
+    @Override
+    public Iterator iterator() {
+        return new Iterator() {
+            Node<E> curr = head.next;
+            @Override
+            public boolean hasNext() {
+                return curr != tail;
+            }
+
+            @Override
+            public Object next() {
+                E val = curr.val;
+                curr = curr.next;
+                return val;
+            }
+        };
+    }
+
 }
