@@ -20,5 +20,30 @@ public class MyArrayDeque<E> {
         this(INIT_CAP);
     }
 
+    /****** Add ******/
+    
+    public void addFirst(E e) {
+        if (size == data.length) {
+            resize(2 * data.length);
+        }
+    }
 
+    public void addLast(E e) {
+        if (size == data.length) {
+            resize(2 * data.length);
+        }
+    }
+
+    private void resize(int newCap) {
+        E[] temp = (E[]) new Object[newCap];
+        // first-----last
+        //---last   first---
+        //in case first has been moved behind last, use %
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[(first + i) % data.length];
+        }
+        first = 0;
+        last = size;
+        data = temp;
+    }
 }
