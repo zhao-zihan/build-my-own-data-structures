@@ -15,4 +15,24 @@ public class MyArrayQueue<E> {
     public MyArrayQueue() {
         this(INIT_CAP);
     }
+
+    /****** Tools ******/
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private void resize(int newCap) {
+        E[] temp = (E[]) new Object[newCap];
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[(first + i) % data.length];
+        }
+        first = 0;
+        last = size;
+        data = temp;
+    }
 }
