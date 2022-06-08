@@ -34,6 +34,16 @@ public class MyArrayDeque<E> {
         }
     }
 
+    /****** Tools ******/
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     private void resize(int newCap) {
         E[] temp = (E[]) new Object[newCap];
         // first-----last
