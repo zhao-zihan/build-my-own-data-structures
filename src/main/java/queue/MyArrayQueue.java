@@ -1,5 +1,7 @@
 package queue;
 
+import java.util.NoSuchElementException;
+
 public class MyArrayQueue<E> {
     private int size;
     private E[] data;
@@ -14,6 +16,65 @@ public class MyArrayQueue<E> {
 
     public MyArrayQueue() {
         this(INIT_CAP);
+    }
+
+    /****** Add ******/
+
+    //add elements from the back of the queue
+    public void offer(E e) {
+        if (size == data.length) {
+            resize(2 * data.length);
+        }
+
+        data[last] = e;
+        last++;
+
+        if (last == data.length) {
+            last = 0;
+        }
+
+        size++;
+    }
+
+    /****** Delete ******/
+
+    //poll element from the beginning of the queue
+    public E poll() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        if (size == data.length / 4) {
+            resize(data.length / 2);
+        }
+
+        E oldVal = data[first];
+        data[first] = null;
+        first++;
+        if (first == data.length) {
+            first = 0;
+        }
+        size--;
+        return oldVal;
+    }
+
+    /****** Read ******/
+
+    public E peekFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return data[first];
+    }
+
+    public E peekLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        if (last == 0) {
+            return data[data.length - 1];
+        }
+        return data[last - 1];
     }
 
     /****** Tools ******/
