@@ -1,5 +1,7 @@
 package queue;
 
+import java.util.NoSuchElementException;
+
 public class MyArrayDeque<E> {
     private int size;
     private E[] data;
@@ -31,6 +33,34 @@ public class MyArrayDeque<E> {
     public void addLast(E e) {
         if (size == data.length) {
             resize(2 * data.length);
+        }
+    }
+
+    /****** Delete ******/
+
+    public E removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+    }
+
+    public E removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+    }
+
+    /****** Read ******/
+
+    public E getFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+    }
+
+    public E getLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
         }
     }
 
