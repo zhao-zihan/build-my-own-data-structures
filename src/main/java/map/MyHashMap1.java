@@ -1,5 +1,7 @@
 package map;
 
+import java.util.Map;
+
 public class MyHashMap1<K, V> {
     private int size;
     private Slot<K, V>[] table;
@@ -16,6 +18,56 @@ public class MyHashMap1<K, V> {
             table[i] = new Slot<>();
         }
     }
+
+    /****** Add/Update ******/
+
+    public V put(K key, V val) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        if (size >= table.length * 0.75) {
+            resize(2 * table.length);
+        }
+        Slot<K, V> slot = table[hash(key)];
+        if (!slot.containsKey(key)) {
+            size++;
+        }
+        return slot.put(key, val);
+    }
+
+    /****** Delete ******/
+
+    public V remove(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        Slot<K, V> slot = table[hash(key)];
+        if (slot.containsKey(key)) {
+            size--;
+            return slot.remove(key);
+        }
+        return null;
+    }
+
+    /****** Read ******/
+
+    public V get(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+
+        Slot<K, V> slot = table[hash(key)];
+        return slot.get(key);
+    }
+
+    public boolean containsKey(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        Slot<K, V> slot = table[hash(key)];
+        return slot.containsKey(key);
+    }
+
 
     /****** Tools ******/
 
@@ -38,6 +90,18 @@ public class MyHashMap1<K, V> {
     }
 
     private void resize(int newCap) {
+        MyHashMap1<K, V> newMap = new MyHashMap1<>(newCap);
 
+        //remove all entries in the current table to the new map
+        for (Slot<K, V> slot : table) {
+            for (Map.Entry<K, V> entry : slot.entries()) {
+                K key = entry.getKey();
+                V val = entry.getValue();
+                newMap.put(key, val);
+            }
+        }
+
+        //re-assign the value of table
+        this.table = newMap.table;
     }
 }
