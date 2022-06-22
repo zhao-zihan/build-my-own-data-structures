@@ -1,5 +1,7 @@
 package map;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class MyListMap<K, V> {
@@ -66,6 +68,25 @@ public class MyListMap<K, V> {
         return null;
     }
 
+    /****** Delete ******/
+
+    public V remove(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+
+        Node<K, V> prev = head;
+        for (Node<K, V> p = head.next; p != tail; p = p.next) {
+            if (key.equals(p.key)) {
+                prev.next = p.next;
+                size--;
+                return p.value;
+            }
+            //set prev always equal to the previous node of p
+            prev = p;
+        }
+        return null;
+    }
 
     /****** Read ******/
 
@@ -104,5 +125,26 @@ public class MyListMap<K, V> {
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    //return keySet
+    public List<K> keys() {
+        LinkedList<K> keyList = new LinkedList<>();
+        for (Node<K, V> p = head.next; p != tail; p = p.next) {
+            keyList.addLast(p.key);
+        }
+        return keyList;
+    }
+
+    //return all entries
+    public List<Map.Entry<K, V>> entries() {
+        LinkedList<Map.Entry<K, V>> entryList = new LinkedList<>();
+        //node has implemented Entry interface
+        Node<K, V> p = head.next;
+        while (p != tail) {
+            entryList.addLast(p);
+            p = p.next;
+        }
+        return entryList;
     }
 }
