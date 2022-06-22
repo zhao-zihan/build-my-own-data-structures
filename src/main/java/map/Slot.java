@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MyListMap<K, V> {
+public class Slot<K, V> {
     private final Node<K, V> head, tail;
     private int size;
 
-    public MyListMap() {
+    public Slot() {
         this.head = new Node<>(null, null);
         this.tail = new Node<>(null, null);
 
