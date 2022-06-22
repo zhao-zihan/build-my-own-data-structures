@@ -42,6 +42,31 @@ public class MyListMap<K, V> {
         }
     }
 
+    /****** Add/Update ******/
+
+    public V put(K key, V val) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+
+        //check if there is an existing node
+        //if yes, update the value
+        Node<K, V> p = getNode(key);
+        if (p != null) {
+            V oldVal = p.value;
+            p.value = val;
+            return oldVal;
+        }
+
+        //if not, make a new node and insert it to the front
+        Node<K, V> x = new Node<>(key, val);
+        x.next = head.next;
+        head.next = x;
+        size++;
+        return null;
+    }
+
+
     /****** Read ******/
 
     public V get(K key) {
