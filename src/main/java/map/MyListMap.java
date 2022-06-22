@@ -41,4 +41,43 @@ public class MyListMap<K, V> {
             return oldVal;
         }
     }
+
+    /****** Read ******/
+
+    public V get(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        Node<K, V> p = getNode(key);
+        if (p == null) {
+            return null;
+        }
+        return p.value;
+    }
+
+    public boolean containsKey(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key is null");
+        }
+        return getNode(key) != null;
+    }
+
+    private Node<K, V> getNode(K key) {
+        for (Node<K, V> p = head.next; p != tail; p = p.next) {
+            if (key.equals((p.key))) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /****** Tools ******/
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 }
